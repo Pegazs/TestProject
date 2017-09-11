@@ -9,20 +9,19 @@ import java.io.IOException;
 public class XmlParserServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        resp.getWriter().println("<form name=\"xmlForm\" method=\"post\" action=\"xmlServlet\">\n" +
+        response.getWriter().println("<form name=\"xmlForm\" method=\"post\" action=\"xmlServletResult\">\n" +
                 "<textarea name=\"xml\" rows=\"30\" cols=\"100\" ></textarea> <br/>\n" +
                 "<input type=\"submit\" value=\"Submit\" />\n" +
                 "</form>");
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-
+        String xmlFromForm = request.getParameter("xml");
     }
 
 }
