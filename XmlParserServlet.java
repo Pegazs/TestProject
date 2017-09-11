@@ -12,7 +12,10 @@ public class XmlParserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        resp.getWriter().println("Test");
+        resp.getWriter().println("<form name=\"xmlForm\" method=\"post\" action=\"xmlServlet\">\n" +
+                "<textarea name=\"xml\" rows=\"30\" cols=\"100\" ></textarea> <br/>\n" +
+                "<input type=\"submit\" value=\"Submit\" />\n" +
+                "</form>");
     }
 
     @Override
