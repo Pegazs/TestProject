@@ -1,4 +1,4 @@
-package TestPackage;
+package TestPackage.java;
 
 import java.io.*;
 import java.util.Properties;

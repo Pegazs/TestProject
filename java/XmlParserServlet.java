@@ -1,4 +1,8 @@
-package TestPackage;
+package TestPackage.java;
+
+
+
+import TestPackage.jaxb.Envelope;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +26,16 @@ public class XmlParserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String xmlFromForm = request.getParameter("xml");
+        try {
+
+            Envelope envelopeObject = Envelope.convertFromStringXml(xmlFromForm);
+            envelopeObject.consoleTest();
+
+        } catch(Exception e) {
+            System.out.println(e);
+            //логи
+        }
+
     }
 
 }
