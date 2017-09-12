@@ -1,7 +1,7 @@
 package TestPackage.java;
 
 import TestPackage.jaxb.Envelope;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +15,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class XmlParserServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
         response.getWriter().println("<form name=\"xmlForm\" method=\"post\" action=\"xmlServletResult\">\n" +
                 "<textarea name=\"xml\" rows=\"30\" cols=\"100\" ></textarea> <br/>\n" +
                 "<input type=\"submit\" value=\"Submit\" />\n" +
@@ -25,12 +24,15 @@ public class XmlParserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String xmlFromForm = request.getParameter("xml");
         try {
             Envelope envelopeObject = Envelope.convertFromStringXml(xmlFromForm);
-            envelopeObject.consoleTest(); //проверка правильности преобразования
+
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            String htmlResponse = "Сконвертировано:<br>\n"+envelopeObject.convertToJsonString().replace("\n","<br>\n");
+            writer.println(htmlResponse);
         } catch(Exception e) {
             System.out.println(e);
             //логи

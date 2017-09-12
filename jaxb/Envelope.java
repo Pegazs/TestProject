@@ -26,15 +26,16 @@ public class Envelope {
         return (Envelope) jaxbUnmarshaller.unmarshal(reader);
     }
 
-    //метод тестирования
-    public void consoleTest() {
+    public String convertToJsonString() {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper.writeValueAsString(this);
             jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
-            System.out.println(jsonInString);
+            return jsonInString;
+            //TODO: записать в лог
         } catch(Exception e) {
             System.out.println(e);
         }
+        return "";
     }
 }
