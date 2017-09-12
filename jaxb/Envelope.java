@@ -24,14 +24,17 @@ public class Envelope {
         return (Envelope) jaxbUnmarshaller.unmarshal(reader);
     }
 
-    //класс тестирования
+    //метод тестирования
     public void consoleTest() {
         System.out.println(this.getBody().getSendPayment().getToken());
         System.out.println(this.getBody().getSendPayment().getCardNumber());
         System.out.println(this.getBody().getSendPayment().getRequestId());
         System.out.println(this.getBody().getSendPayment().getAmount());
         System.out.println(this.getBody().getSendPayment().getCurrency());
-
+        for (Account account : this.getBody().getSendPayment().getAccounts()) {
+            System.out.println(account.getType());
+            System.out.println(account.getValue());
+        }
         System.out.println(this.getBody().getSendPayment().getPage());
         for (Field field : this.getBody().getSendPayment().getFields()) {
             System.out.println(field.getId());

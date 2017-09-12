@@ -27,10 +27,8 @@ public class XmlParserServlet extends HttpServlet {
             throws ServletException, IOException {
         String xmlFromForm = request.getParameter("xml");
         try {
-
             Envelope envelopeObject = Envelope.convertFromStringXml(xmlFromForm);
-            envelopeObject.consoleTest();
-
+            envelopeObject.consoleTest(); //проверка правильности преобразования
         } catch(Exception e) {
             System.out.println(e);
             //логи

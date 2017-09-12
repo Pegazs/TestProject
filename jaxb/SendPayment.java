@@ -16,7 +16,8 @@ public class SendPayment {
     private String amount;
     @XmlElement(name="currency")
     private String currency;
-
+    @XmlElement(name="account", namespace = "wsapi:Utils")
+    private List<Account> accounts;
     @XmlElement(name="page")
     private int page;
     @XmlElement(name="field")
@@ -40,6 +41,10 @@ public class SendPayment {
 
     public String getCurrency() {
         return currency;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
     public int getPage() {
