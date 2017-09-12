@@ -1,5 +1,7 @@
 package TestPackage.jaxb;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -26,19 +28,13 @@ public class Envelope {
 
     //метод тестирования
     public void consoleTest() {
-        System.out.println(this.getBody().getSendPayment().getToken());
-        System.out.println(this.getBody().getSendPayment().getCardNumber());
-        System.out.println(this.getBody().getSendPayment().getRequestId());
-        System.out.println(this.getBody().getSendPayment().getAmount());
-        System.out.println(this.getBody().getSendPayment().getCurrency());
-        for (Account account : this.getBody().getSendPayment().getAccounts()) {
-            System.out.println(account.getType());
-            System.out.println(account.getValue());
-        }
-        System.out.println(this.getBody().getSendPayment().getPage());
-        for (Field field : this.getBody().getSendPayment().getFields()) {
-            System.out.println(field.getId());
-            System.out.println(field.getValue());
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonInString = mapper.writeValueAsString(this);
+            jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+            System.out.println(jsonInString);
+        } catch(Exception e) {
+            System.out.println(e);
         }
     }
 }
