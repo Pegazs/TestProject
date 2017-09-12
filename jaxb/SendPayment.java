@@ -2,6 +2,7 @@ package TestPackage.jaxb;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @XmlRootElement(name = "sendPayment", namespace = "wsapi:Payment")
 public class SendPayment {
@@ -18,6 +19,8 @@ public class SendPayment {
 
     @XmlElement(name="page")
     private int page;
+    @XmlElement(name="field")
+    private List<Field> fields;
 
     public String getToken() {
         return token;
@@ -41,5 +44,9 @@ public class SendPayment {
 
     public int getPage() {
         return page;
+    }
+
+    public List<Field> getFields() {
+        return fields;
     }
 }

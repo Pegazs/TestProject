@@ -33,5 +33,9 @@ public class Envelope {
         System.out.println(this.getBody().getSendPayment().getCurrency());
 
         System.out.println(this.getBody().getSendPayment().getPage());
+        for (Field field : this.getBody().getSendPayment().getFields()) {
+            System.out.println(field.getId());
+            System.out.println(field.getValue());
+        }
     }
 }
