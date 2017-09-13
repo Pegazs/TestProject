@@ -1,6 +1,9 @@
-package TestPackage.java;
+package TestPackage;
 
 import java.io.*;
+
+import TestPackage.http.XmlParserServlet;
+import org.eclipse.jetty.servlet.ServletHolder;
 import java.util.Properties;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -22,7 +25,9 @@ public class Bootstrap {
 
         Server server = new Server(jettyPort);
         ServletContextHandler handler = new ServletContextHandler(server, "/");
-        handler.addServlet(XmlParserServlet.class, "/");
+        XmlParserServlet servletMain = new XmlParserServlet(destinationAddress, destinationPort);
+        ServletHolder servletHolder = new ServletHolder(servletMain);
+        handler.addServlet(servletHolder, "/");
         server.start();
     }
 }

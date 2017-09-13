@@ -30,7 +30,6 @@ public class Envelope {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper.writeValueAsString(this);
-            jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
             return jsonInString;
             //TODO: записать в лог
         } catch(Exception e) {
