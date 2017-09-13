@@ -1,6 +1,8 @@
 package TestPackage.jaxb;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
@@ -11,6 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Envelope")
 public class Envelope {
+    private final static Logger log = LogManager.getLogger(Envelope.class);
+
     @XmlElement(name = "Body")
     private Body body;
 
@@ -30,10 +34,10 @@ public class Envelope {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper.writeValueAsString(this);
+            log.info("Result of convertToJsonString: " + jsonInString);
             return jsonInString;
-            //TODO: записать в лог
         } catch(Exception e) {
-            System.out.println(e);
+            log.error("Error in convertToJsonString: " + e);
         }
         return "";
     }

@@ -1,5 +1,7 @@
 package TestPackage.http;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import TestPackage.jaxb.Envelope;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -13,6 +15,8 @@ import java.nio.ByteOrder;
 import javax.xml.bind.DatatypeConverter;
 
 public class XmlParserServlet extends HttpServlet {
+    private final static Logger log = LogManager.getLogger(XmlParserServlet.class);
+
     private String destinationAddress;
     private int destinationPort;
 
@@ -27,7 +31,8 @@ public class XmlParserServlet extends HttpServlet {
         byte[] header = ByteBuffer.allocate(4).putInt(0xFFBBCCDD).array();
         byte[] length = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(jsonString.length()).array();
         byte[] json = jsonString.getBytes("UTF-16LE");
-        String hexString = DatatypeConverter.printHexBinary(header) + DatatypeConverter.printHexBinary(length) + DatatypeConverter.printHexBinary(json); //логи
+        String hexString = DatatypeConverter.printHexBinary(header) + DatatypeConverter.printHexBinary(length) + DatatypeConverter.printHexBinary(json);
+        log.info("HEX string for sending from SendJsonStringOverTcp: " + hexString);
 
         try {
             Socket socket = new Socket(destinationAddress, destinationPort);
@@ -37,8 +42,8 @@ public class XmlParserServlet extends HttpServlet {
             socket.getOutputStream().flush();
             return "Sending was successful";
         }  catch(Exception e) {
+            log.error("Error in SendJsonStringOverTcp: " + e);
             return "Failed to send: " + e;
-            //логи
         }
     }
 
@@ -63,8 +68,7 @@ public class XmlParserServlet extends HttpServlet {
             htmlResponse += ("<br><br>" + SendJsonStringOverTcp(jsonString));
             writer.println(htmlResponse);
         } catch(Exception e) {
-            System.out.println(e);
-            //логи
+            log.error("Error in doPost: " + e);
         }
 
     }
